@@ -16,7 +16,7 @@ class App extends React.Component {
     }
 
     changeActiveComponent(newComponent) {
-        window.store.data.currentComponent = newComponent;
+        window.store.currentComponent = newComponent;
         this.setState({
             component: newComponent
         });

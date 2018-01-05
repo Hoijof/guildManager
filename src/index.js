@@ -5,19 +5,28 @@ import './index.css';
 import store from './store';
 import App from './components/app';
 
+import Editor from './components/editor';
+
 import character from './prototypes/character';
+import guild from './prototypes/guild';
+import world from'./prototypes/world';
 
 window.store = store;
 
+localStorage.setItem('gm', null);
+
+let debug = true;
+
 store.load({
-    currentComponent: null,
-    character: Object.create(character).init()
+    character: Object.create(character).init(0, debug),
+    guild: Object.create(guild).init(0, debug),
+    world: Object.create(world).init(debug)
 });
 
 store.data.character.__proto__ = character;
 
 // Have to solve how routes work yet
-store.data.currentComponent = null;
+store.currentComponent = <Editor editable="character"/>;
 
 window.onbeforeunload = function() {
     store.persist();

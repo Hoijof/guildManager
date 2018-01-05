@@ -7,13 +7,13 @@ store.persist = function() {
 };
 
 store.load = function(defaultData) {
-  const res = JSON.parse(localStorage.getItem('gm'));
+  const res = localStorage.getItem('gm');
 
-  if (res == null) {
+  if (res == null || res === 'null') {
       store.data = defaultData;
       store.persist();
   } else {
-      store.data = res;
+      store.data = JSON.parse(res);
   }
 };
 
