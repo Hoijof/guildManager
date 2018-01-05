@@ -1,4 +1,7 @@
+import editable from './editable';
+
 export default {
+    __proto__: editable,
     openValues: [],
     closedValues: ['name'],
 

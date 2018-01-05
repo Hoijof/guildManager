@@ -1,6 +1,8 @@
 import building from './building';
+import editable from './editable';
 
 export default {
+    __proto__: editable,
     openValues: [],
     closedValues: ['gold', 'renown'],
     init(id, debug = false) {
@@ -12,7 +14,13 @@ export default {
         this.gold = 0;
 
         this.items = {
-            weapons: [],
+            weapons: [
+                {
+                    type: 'weapon',
+                    level: 1,
+                    name: 'wood'
+                }
+            ],
             armors: [],
             accessories: []
         };
@@ -20,7 +28,7 @@ export default {
         this.renown = 0;
 
         if (debug) {
-            this.openValues = ['gold', 'renown'];
+            this.openValues = ['gold', 'renown', 'members', 'buildings', 'items'];
             this.closedValues = ['id'];
         }
 

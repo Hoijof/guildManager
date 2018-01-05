@@ -21,8 +21,8 @@ class Editor extends React.Component {
         this.setState(newState);
     }
 
-    update(paramName, e) {
-        const newItem = this.state[this.props.editable].update(paramName, e.target.value);
+    update(paramName, parent, gp, ggp, e) {
+        const newItem = this.state[this.props.editable].update(paramName, parent, gp, ggp, e.target.value);
 
         window.store.data[this.props.editable] = newItem;
 
@@ -49,30 +49,61 @@ class Editor extends React.Component {
         )
     }
 
-    getInputField(paramName, readOnly = false) {
-        const divStyles = {
-            padding: 5
-        };
+    getInputField(paramName, readOnly = false, parent, grandParentName, ggp) {
+        const styles = this.getStyles();
+        const editable = this.state[this.props.editable];
+        console.log(paramName);
 
-        const spanStyles = {
-            marginRight: 5
-        };
+        const param = (editable[ggp] && editable[ggp][grandParentName] && editable[ggp][grandParentName][parent] && editable[ggp][grandParentName][parent][paramName]) ||
+            (editable[grandParentName] && editable[grandParentName][parent] && editable[grandParentName][parent][paramName]) ||
+            (editable[parent] && editable[parent][paramName]) ||
+            editable[paramName];
+        console.log(param);
+
+        if (typeof param === 'object') {
+            const keys = Object.keys(param);
+
+            const res = keys.map((name) => {
+                return this.getInputField(name, readOnly, paramName, parent, grandParentName);
+            });
+
+            return (
+                <div style={styles.objectStyles}>
+                    <span>{paramName}:</span>
+                    {res}
+                </div>
+            )
+        }
 
         if (readOnly) {
             return (
-                <div style={divStyles}>
-                    <span style={spanStyles}>{paramName}:</span>
-                    <span> {this.state[this.props.editable][paramName]} </span>
+                <div style={styles.divStyles}>
+                    <span style={styles.spanStyles}>{paramName}:</span>
+                    <span> {param} </span>
                 </div>
             );
         }
 
         return (
-            <div style={divStyles}>
-                <span style={spanStyles}>{paramName}:</span>
-                <input id={paramName} type="text" onChange={(e) => {this.update(paramName, e)}} value={this.state[this.props.editable][paramName]}/>
+            <div style={styles.divStyles}>
+                <span style={styles.spanStyles}>{paramName}:</span>
+                <input id={paramName} type="text" onChange={(e) => {this.update(paramName, parent, grandParentName, ggp, e)}} value={param}/>
             </div>
         );
+    }
+
+    getStyles() {
+        return {
+            divStyles: {
+                padding: 5
+            },
+            spanStyles: {
+                marginRight: 5
+            },
+            objectStyles: {
+                marginLeft: 10
+            }
+        }
     }
 }
 

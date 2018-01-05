@@ -1,4 +1,7 @@
+import editable from './editable';
+
 export default {
+    __proto__: editable,
     openValues: ['name', 'surname'],
     closedValues: ['age', 'gold', 'level', 'completedQuest', 'energy'],
     init(id, debug = false) {
@@ -26,16 +29,10 @@ export default {
         this.exp = 0;
 
         if (debug) {
-            this.openValues = ['name', 'surname', 'age', 'gold', 'level', 'completedQuest', 'energy', 'talent', 'exp'];
+            this.openValues = ['items', 'name', 'surname', 'age', 'gold', 'level', 'completedQuests', 'energy', 'talent', 'exp'];
             this.closedValues = ['id'];
         }
 
         return this;
-    },
-
-    update(paramName, value) {
-        this[paramName] = value;
-
-        return this;
     }
-}
+};
