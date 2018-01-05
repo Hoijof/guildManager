@@ -9,6 +9,16 @@ class Members extends React.Component {
         this.state = {
             guild: window.store.data.guild
         }
+
+        this.expel = this.expel.bind(this);
+    }
+
+    expel(e) {
+        const member = this.state.guild.members[e.target.getAttribute('data-id')];
+
+        this.state.guild.expelMember(member);
+
+        this.forceUpdate();
     }
 
     render() {
@@ -18,7 +28,7 @@ class Members extends React.Component {
             <div>
                 <h1 style={styles.title}>MEMBERS!</h1>
                 <ul>
-                    {this.state.guild.members.map((member) => {
+                    {this.state.guild.members.map((member, key) => {
                         return (
                             <li key={member.name+member.age+member.level}>
                                 <p>Name: {member.name}</p>
@@ -26,6 +36,7 @@ class Members extends React.Component {
                                 <p>Level: {member.level}</p>
                                 <p>Talent: {member.talent}</p>
                                 <p>Price: {member.computePrice()}</p>
+                                <a href="#" onClick={this.expel} data-id={key}>Expel</a>
                             </li>
                         )
                     })}

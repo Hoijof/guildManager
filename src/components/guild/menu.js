@@ -4,6 +4,7 @@ import Radium from 'radium';
 import Overview from './overview';
 import Members from './members';
 import Buildings from './buildings';
+import Logs from '../logs';
 
 class Menu extends React.Component {
     constructor(props) {
@@ -16,6 +17,7 @@ class Menu extends React.Component {
         this.openOverview = this.openOverview.bind(this);
         this.openMembers = this.openMembers.bind(this);
         this.openBuildings = this.openBuildings.bind(this);
+        this.openLogs = this.openLogs.bind(this);
     }
 
     openOverview(e) {
@@ -30,6 +32,10 @@ class Menu extends React.Component {
         this.props.changeActiveComponent(<Buildings />);
     }
 
+    openLogs(e) {
+        this.props.changeActiveComponent(<Logs logs={this.state.guild.logs} />);
+    }
+
     render() {
         const styles = this.getStyles();
 
@@ -40,7 +46,7 @@ class Menu extends React.Component {
                     <li style={styles.liStyles} key="members" onClick={this.openMembers} >Members</li>
                     <li style={styles.liStyles} key="quests" onClick={this.openOverview} >Quests</li>
                     <li style={styles.liStyles} key="buildings" onClick={this.openBuildings} >Buildings</li>
-                    <li style={styles.liStyles} key="logs" onClick={this.openOverview} >Logs</li>
+                    <li style={styles.liStyles} key="logs" onClick={this.openLogs} >Logs</li>
                     <li style={styles.gold} key="gold"> Gold: {this.state.guild.gold} </li>
                 </ul>
             </nav>

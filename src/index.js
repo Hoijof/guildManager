@@ -9,28 +9,54 @@ import Editor from './components/editor';
 
 import character from './prototypes/character';
 import guild from './prototypes/guild';
-import world from'./prototypes/world';
+import world from './prototypes/world';
+import item from './prototypes/item';
+import building from './prototypes/building';
 
 window.store = store;
 
-localStorage.setItem('gm', null);
+// localStorage.setItem('gm', null);
 
-let debug = true;
-
-const res = store.load({
-    character: Object.create(character).init(0, debug),
-    guild: Object.create(guild).init(0, debug),
-    world: Object.create(world).init(debug)
-});
-
-if (!res) {
+if (!store.load()) {
+    let debug = true;
+    store.data.world = Object.create(world).init(debug);
+    store.data.character = Object.create(character).init(debug);
+    store.data.guild = Object.create(guild).init(debug);
     store.data.world.addCharacter(store.data.character);
     store.data.world.addGuild(store.data.guild);
+    store.data.guild.addMember(store.data.character);
+} else {
+    store.data.character.__proto__ = character;
+    store.data.world.__proto__ = world;
+    store.data.guild.__proto__ = guild;
+    store.data.guild.members.forEach(protoCharacter);
+    store.data.guild.buildings.forEach(protoBuilding);
+    store.data.guild.items.forEach(protoItem);
+
+    store.data.world.characters.forEach(protoCharacter);
+
+    store.data.world.guilds.forEach((g) => {
+       g.__proto__ = guild;
+       g.members.forEach(protoCharacter);
+       g.buildings.forEach(protoBuilding);
+       g.items.forEach(protoItem);
+    });
+
+    store.data.world.market.items.forEach(protoItem);
+
+    function protoCharacter(c) {
+        c.__proto__ = character;
+    }
+
+    function protoItem(i) {
+        i.__proto__ = item;
+    }
+
+    function protoBuilding(b) {
+        b.__proto__ = building;
+    }
 }
 
-store.data.guild.addMember(store.data.character);
-
-store.data.character.__proto__ = character;
 
 
 store.data.world.callADay();

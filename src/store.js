@@ -6,13 +6,10 @@ store.persist = function() {
   localStorage.setItem('gm', JSON.stringify(store.data));
 };
 
-store.load = function(defaultData) {
+store.load = function() {
   const res = localStorage.getItem('gm');
 
   if (res == null || res === 'null') {
-      store.data = defaultData;
-      store.persist();
-
       return false;
   } else {
       store.data = JSON.parse(res);

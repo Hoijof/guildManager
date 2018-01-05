@@ -3,12 +3,14 @@ import proptypes from 'prop-types';
 import Radium from "radium";
 import Menu from './guild/menu';
 
+import Overview from './guild/overview';
+
 class Guild extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            component: this.props.component,
+            component: this.props.component || <Overview />,
             guild: window.store.data.guild
         };
 
