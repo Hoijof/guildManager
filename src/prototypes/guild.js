@@ -1,5 +1,7 @@
 import building from './building';
 import editable from './editable';
+import item from './item';
+import tools from '../tools';
 
 export default {
     __proto__: editable,
@@ -13,19 +15,13 @@ export default {
 
         this.gold = 0;
 
-        this.items = {
-            weapons: [
-                {
-                    type: 'weapon',
-                    level: 1,
-                    name: 'wood'
-                }
-            ],
-            armors: [],
-            accessories: []
-        };
+        this.items = this.getRandomItems();
 
         this.renown = 0;
+        this.totalQuests = 0;
+
+        this.cleanness = 100;
+        this.repairs = 100;
 
         if (debug) {
             this.openValues = ['gold', 'renown', 'members', 'buildings', 'items'];
@@ -35,9 +31,22 @@ export default {
         return this;
     },
     getDefaultBuildings() {
-        return {
-            hall: Object.create(building).init('Hall'),
-            warriorsHall: Object.create(building).init('warriors Hall'),
+        return [
+            Object.create(building).init('Hall'),
+            Object.create(building).init('warriors Hall')
+        ];
+    },
+    getRandomItems() {
+        const rand = tools.getRandomInt(3,5);
+        const items = [];
+
+        for (let i = 0; i < rand; ++i) {
+            items.push(Object.create(item).init(1));
         }
+
+        return items;
+    },
+    addMember(character) {
+        this.members.push(character);
     }
 }

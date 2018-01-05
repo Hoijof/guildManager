@@ -28,6 +28,7 @@ if (!res) {
     store.data.world.addGuild(store.data.guild);
 }
 
+store.data.guild.addMember(store.data.character);
 
 store.data.character.__proto__ = character;
 

@@ -23,7 +23,7 @@ class Recruit extends React.Component {
         const recruit = this.state.recruits[e.target.getAttribute('data-id')];
 
         if (this.state.character.gold >= recruit.price) {
-            this.state.guild.members.push(recruit);
+            this.state.guild.addMember(recruit);
             this.state.character.gold -= recruit.price;
             const idx = window.store.data.world.recruits.indexOf(recruit);
             window.store.data.world.recruits.splice(idx, 1);
@@ -49,7 +49,7 @@ class Recruit extends React.Component {
                 <ul>
                     {this.state.recruits && this.state.recruits.map((recruit, key) => {
                         return (
-                            <li key={recruit.displayName}>
+                            <li key={recruit.name+recruit.age+recruit.level}>
                                 <p>Name: {recruit.name}</p>
                                 <p>Age: {recruit.age}</p>
                                 <p>Level: {recruit.level}</p>

@@ -8,7 +8,7 @@ class Editor extends React.Component {
 
         this.state = {};
 
-        if (props.id === null) {
+        if (props.id === '-1') {
             this.state[props.editable] = window.store.data[props.editable];
         } else {
             this.state[props.editable] = window.store.data.world[props.editable][props.id];

@@ -27,7 +27,7 @@ class App extends React.Component {
         const sideMenuStyles = {
             height: '100%',
             backgroundColor: 'black',
-            width: 'fit-content',
+            width: '150px',
             float: 'left'
         };
 
@@ -35,22 +35,22 @@ class App extends React.Component {
             padding: '10px',
             float: 'left'
         };
-        const mainDivStyles = {
+        const mainDivStyles = {};
 
-        };
+        return (
+            <div id="mainDiv" style={mainDivStyles} className="mainDiv">
 
-        return <div id="mainDiv" style={mainDivStyles} className="mainDiv">
+                <div style={sideMenuStyles}>
+                    <Menu changeActiveComponent={this.changeActiveComponent}/>
+                    <p>App Status: {this.status}</p>
+                </div>
 
-            <div style={sideMenuStyles}>
-                <Menu changeActiveComponent={this.changeActiveComponent}/>
-                <p>App Status: {this.status}</p>
+                <div style={mainContainerStyles}>
+                    {this.state.component}
+                </div>
+
             </div>
-
-            <div style={mainContainerStyles}>
-                {this.state.component}
-            </div>
-
-        </div>
+        )
     }
 }
 
