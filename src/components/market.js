@@ -24,6 +24,7 @@ class Market extends React.Component {
         if (this.state.character.gold >= item.price) {
             this.state.character.items.weapon = item;
             this.state.character.gold -= item.price;
+
             const idx = window.store.data.world.market.items.indexOf(item);
             window.store.data.world.market.items.splice(idx, 1);
 

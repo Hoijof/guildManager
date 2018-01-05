@@ -5,10 +5,6 @@ import Radium from "radium";
 class Overview extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            guild: window.store.data.guild
-        }
     }
 
     render() {
@@ -20,22 +16,22 @@ class Overview extends React.Component {
 
                 <div style={styles.divStyles}>
                     <span style={styles.spanStyles}>Members:</span>
-                    <span> {this.state.guild.members.length} </span>
+                    <span> {this.props.guild.members.length} </span>
                 </div>
 
                 <div style={styles.divStyles}>
                     <span style={styles.spanStyles}>Total Quests:</span>
-                    <span> {this.state.guild.totalQuests} </span>
+                    <span> {this.props.guild.totalQuests} </span>
                 </div>
 
                 <div style={styles.divStyles}>
                     <span style={styles.spanStyles}>Renown:</span>
-                    <span> {this.state.guild.renown} </span>
+                    <span> {this.props.guild.renown} </span>
                 </div>
 
                 <div style={styles.divStyles}>
                     <span style={styles.spanStyles}>Gold:</span>
-                    <span> {this.state.guild.gold} </span>
+                    <span> {this.props.guild.gold} </span>
                 </div>
 
                 <div style={styles.divStyles}>
@@ -45,12 +41,12 @@ class Overview extends React.Component {
 
                 <div style={styles.divStyles}>
                     <span style={styles.spanStyles}>Cleanness:</span>
-                    <span> {this.state.guild.cleanness} </span>
+                    <span> {this.props.guild.cleanness} </span>
                 </div>
 
                 <div style={styles.divStyles}>
                     <span style={styles.spanStyles}>Repairs:</span>
-                    <span> {this.state.guild.repairs} </span>
+                    <span> {this.props.guild.repairs} </span>
                 </div>
             </div>
         )

@@ -21,11 +21,11 @@ class Menu extends React.Component {
     }
 
     openMarket(e) {
-        this.props.changeActiveComponent(<Market characterId={window.store.data.character.id} /> );
+        this.props.changeActiveComponent(<Market characterId={window.store.data.characterId} /> );
     }
 
     openRecruit(e) {
-        this.props.changeActiveComponent(<Recruit characterId={window.store.data.character.id} /> );
+        this.props.changeActiveComponent(<Recruit characterId={window.store.data.characterId} /> );
     }
 
     openGuild(e) {

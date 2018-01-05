@@ -16,7 +16,7 @@ class Logs extends React.Component {
 
         return (
             <div>
-                <h1 style={styles.title}>OVERVIEW!</h1>
+                <h1 style={styles.title}>LOGS!</h1>
 
                 {this.props.logs.map((log) => {
                     return (

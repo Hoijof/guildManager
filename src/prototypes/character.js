@@ -6,6 +6,8 @@ export default {
     __proto__: editable,
     openValues: ['name', 'surname'],
     closedValues: ['age', 'gold', 'level', 'completedQuest', 'energy'],
+    openValues: ['items', 'name', 'surname', 'age', 'gold', 'level', 'completedQuests', 'energy', 'talent', 'exp'],
+    closedValues: ['id'],
     init(id, debug = false) {
         this.id = id;
 

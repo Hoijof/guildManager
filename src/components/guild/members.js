@@ -7,8 +7,8 @@ class Members extends React.Component {
         super(props);
 
         this.state = {
-            guild: window.store.data.guild
-        }
+            guild: props.guild
+        };
 
         this.expel = this.expel.bind(this);
     }

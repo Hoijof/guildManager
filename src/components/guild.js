@@ -10,8 +10,8 @@ class Guild extends React.Component {
         super(props);
 
         this.state = {
-            component: this.props.component || <Overview />,
-            guild: window.store.data.guild
+            component: this.props.component || <Overview guild={window.store.data.world.guilds[window.store.data.guildId]}/>,
+            guild: window.store.data.world.guilds[window.store.data.guildId]
         };
 
         this.changeActiveComponent = this.changeActiveComponent.bind(this);
@@ -31,7 +31,7 @@ class Guild extends React.Component {
             <div id="mainDiv" style={styles.mainDivStyles} className="mainDiv">
 
                 <div style={styles.sideMenuStyles}>
-                    <Menu changeActiveComponent={this.changeActiveComponent}/>
+                    <Menu changeActiveComponent={this.changeActiveComponent} guild={this.state.guild}/>
                 </div>
 
                 <div style={styles.mainContainerStyles}>

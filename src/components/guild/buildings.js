@@ -6,16 +6,12 @@ class Buildings extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            guild: window.store.data.guild
-        };
-
         this.canUpgrade = this.canUpgrade.bind(this);
         this.upgrade = this.upgrade.bind(this);
     }
 
     canUpgrade(building, key) {
-        if (this.state.guild.gold >= building.getPrice()) {
+        if (this.props.guild.gold >= building.getPrice()) {
             return <a href="#" onClick={this.upgrade} data-id={key}>buy</a>;
         } else {
             return <span>buy</span>;
@@ -23,12 +19,12 @@ class Buildings extends React.Component {
     }
 
     upgrade(e) {
-        const building = this.state.guild.buildings[e.target.getAttribute('data-id')];
+        const building = this.props.guild.buildings[e.target.getAttribute('data-id')];
         const price = building.getPrice();
 
-        if (this.state.guild.gold >= price) {
+        if (this.props.guild.gold >= price) {
             building.upgrade();
-            this.state.guild.gold -= price;
+            this.props.guild.gold -= price;
 
             this.forceUpdate();
         }
@@ -41,7 +37,7 @@ class Buildings extends React.Component {
             <div>
                 <h1 style={styles.title}>BUILDINGS!</h1>
                 <ul>
-                    {this.state.guild.buildings.map((building, key) => {
+                    {this.props.guild.buildings.map((building, key) => {
                         return (
                             <li key={building.name}>
                                 <p>Name: {building.name}</p>
