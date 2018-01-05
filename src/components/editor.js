@@ -8,16 +8,27 @@ class Editor extends React.Component {
 
         this.state = {};
 
-        this.state[props.editable] = window.store.data[props.editable];
+        if (props.id === null) {
+            this.state[props.editable] = window.store.data[props.editable];
+        } else {
+            this.state[props.editable] = window.store.data.world[props.editable][props.id];
+        }
     }
 
     static propTypes = {
-        editable: proptypes.string.isRequired
+        editable: proptypes.string.isRequired,
+        id: proptypes.any.isRequired
     };
 
     componentWillReceiveProps(nextProps) {
-        const newState = [];
-        newState[nextProps.editable] = window.store.data[nextProps.editable];
+        const newState = {};
+
+        if (nextProps.id === '-1') {
+            newState[nextProps.editable] = window.store.data[nextProps.editable];
+        } else {
+            newState[nextProps.editable] = window.store.data.world[nextProps.editable][nextProps.id];
+        }
+
         this.setState(newState);
     }
 

@@ -31,8 +31,11 @@ if (!res) {
 
 store.data.character.__proto__ = character;
 
+
+store.data.world.callADay();
+
 // Have to solve how routes work yet
-store.currentComponent = <Editor editable="character"/>;
+store.currentComponent = <Editor editable="characters" id={0}/>;
 
 window.onbeforeunload = function() {
     store.persist();

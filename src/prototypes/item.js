@@ -7,6 +7,8 @@ export default {
         this.name = name || tools.getRandomItemName();
         this.displayName = this.getDisplayName();
 
+        this.price = this.computePrice();
+
         return this;
     },
     getDisplayName() {
@@ -19,5 +21,10 @@ export default {
         if (this.type === 'accessory') {
             return tools.getRandomFromList(['Ring', 'Belt', 'Collar']) + ' of ' + this.name;
         }
+    },
+    computePrice() {
+        const factor = tools.getRandomInt(0.8, 1.5);
+
+        return this.level * 15;
     }
 }

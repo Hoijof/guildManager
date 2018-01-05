@@ -1,4 +1,6 @@
 import editable from './editable';
+import names from '../consts/characterNames';
+import tools from '../tools';
 
 export default {
     __proto__: editable,
@@ -7,24 +9,24 @@ export default {
     init(id, debug = false) {
         this.id = id;
 
-        this.name = 'Player';
-        this.surname = 'Surname';
-        this.age = 16;
+        this.name = tools.rollDice() > 50 ? tools.getRandomFromList(names.maleNames) : tools.getRandomFromList(names.femaleNames);
+        this.surname = tools.getRandomFromList(names.surnames);
+        this.age = tools.getRandomInt(14, 80);
 
-        this.energy = 100;
+        this.energy = tools.getRandomInt(50, 100);
         this.maxEnergy = 100;
 
-        this.gold = 0;
+        this.gold = tools.getRandomInt(0, 50);
         this.items = {
             weapon: null,
             armor: null,
             accessory: null
         };
 
-        this.completedQuests = 0;
-        this.level = 1;
+        this.completedQuests = tools.getRandomInt(0,20);
+        this.level = tools.getRandomInt(1, 5);
 
-        this.talent = Math.random(0,10);
+        this.talent = this.getTalent();
 
         this.exp = 0;
 
@@ -33,6 +35,32 @@ export default {
             this.closedValues = ['id'];
         }
 
+        this.price = this.computePrice();
+
         return this;
+    },
+    getTalent() {
+        const roll = tools.rollDice();
+
+        if (roll < 20) {
+            return 5;
+        }
+        if (roll < 56) {
+            return tools.rollDice() < 50 ? 4 : 6;
+        }
+        if (roll < 82) {
+            return tools.rollDice() < 50 ? 3 : 7;
+        }
+        if (roll < 96) {
+            return tools.rollDice() < 50 ? 2 : 8;
+        }
+        if (roll < 100) {
+            return tools.rollDice() < 50 ? 1 : 10;
+        }
+    },
+    computePrice() {
+        const res = Math.round((this.level * 10) + (this.completedQuests * 2) +  this.gold/2 - this.age/4 + ((this.talent * 500) / this.age));
+
+        return res > 15 ? res : 15;
     }
 };

@@ -2,9 +2,6 @@ import React from 'react';
 import proptypes from 'prop-types';
 import Radium from "radium";
 
-import item from '../prototypes/item';
-import tools from '../tools';
-
 class Market extends React.Component {
     constructor(props) {
         super(props);
@@ -12,7 +9,7 @@ class Market extends React.Component {
         this.buyItem = this.buyItem.bind(this);
 
         this.state = {
-            items: [],
+            items: window.store.data.world.market.items,
             character: window.store.data.world.characters[props.characterId]
         };
     }
@@ -21,28 +18,25 @@ class Market extends React.Component {
         characterId: proptypes.number.isRequired
     };
 
-    componentDidMount() {
-        this.setState({
-            items: this.generateItems()
-        })
-    }
-
-    generateItems() {
-        const it = tools.getRandomInt(3,10);
-        const items = [];
-
-        for (let i = 0; i < it; i++) {
-            const randomFactor = tools.getRandomInt(0.5, 1.5);
-            items.push(Object.create(item).init(this.state.character.level * randomFactor));
-        }
-
-        return items;
-    }
-
     buyItem(e) {
-        const item = this.state.items[e.target.getAttribute('data-id')]
+        const item = this.state.items[e.target.getAttribute('data-id')];
 
-        this.state.character.items.weapon = item;
+        if (this.state.character.gold >= item.price) {
+            this.state.character.items.weapon = item;
+            this.state.character.gold -= item.price;
+            const idx = window.store.data.world.market.items.indexOf(item);
+            window.store.data.world.market.items.splice(idx, 1);
+
+            this.forceUpdate();
+        }
+    }
+
+    canBuy(item, key) {
+        if (this.state.character.gold >= item.price) {
+            return <a href="#" onClick={this.buyItem} data-id={key}>buy</a>;
+        } else {
+            return <span>buy</span>;
+        }
     }
 
     render() {
@@ -58,8 +52,9 @@ class Market extends React.Component {
                             <p>Name: {item.displayName}</p>
                             <p>Type: {item.type}</p>
                             <p>Level: {item.level}</p>
+                            <p>Price: {item.price}</p>
 
-                            <a href="#" onClick={this.buyItem} data-id={key}>buy</a>
+                            {this.canBuy(item, key)}
                         </li>
                     )
                 })}

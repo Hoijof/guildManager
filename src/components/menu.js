@@ -3,6 +3,7 @@ import Radium from 'radium';
 
 import Editor from './editor';
 import Market from './market';
+import Recruit from './recruit';
 
 class Menu extends React.Component {
     constructor(props) {
@@ -10,14 +11,19 @@ class Menu extends React.Component {
 
         this.openEditor = this.openEditor.bind(this);
         this.openMarket = this.openMarket.bind(this);
+        this.openRecruit = this.openRecruit.bind(this);
     }
 
     openEditor(e) {
-        this.props.changeActiveComponent(<Editor editable={e.target.getAttribute('data-prototype')}/>);
+        this.props.changeActiveComponent(<Editor editable={e.target.getAttribute('data-prototype')} id={e.target.getAttribute('data-id')}/>);
     }
 
     openMarket(e) {
         this.props.changeActiveComponent(<Market characterId={window.store.data.character.id} /> );
+    }
+
+    openRecruit(e) {
+        this.props.changeActiveComponent(<Recruit characterId={window.store.data.character.id} /> );
     }
 
     render() {
@@ -26,10 +32,11 @@ class Menu extends React.Component {
         return (
             <nav>
                 <ul style={styles.ulSyles}>
-                    <li style={[styles.liStyles]} key="character" onClick={this.openEditor} data-prototype="character">Edit Character</li>
-                    <li style={[styles.liStyles]} key="guild" onClick={this.openEditor} data-prototype="guild">Edit Guild</li>
-                    <li style={[styles.liStyles]} key="world" onClick={this.openEditor} data-prototype="world">Edit World</li>
+                    <li style={[styles.liStyles]} key="characters" onClick={this.openEditor} data-prototype="characters" data-id="0">Edit Character</li>
+                    <li style={[styles.liStyles]} key="s" onClick={this.openEditor} data-prototype="guilds" data-id="0">Edit Guild</li>
+                    <li style={[styles.liStyles]} key="world" onClick={this.openEditor} data-prototype="world" data-id="-1">Edit World</li>
                     <li style={[styles.liStyles]} key="market" onClick={this.openMarket} >Market</li>
+                    <li style={[styles.liStyles]} key="recruit" onClick={this.openRecruit} >Recruit</li>
                 </ul>
             </nav>
         );
