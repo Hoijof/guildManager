@@ -17,11 +17,17 @@ localStorage.setItem('gm', null);
 
 let debug = true;
 
-store.load({
+const res = store.load({
     character: Object.create(character).init(0, debug),
     guild: Object.create(guild).init(0, debug),
     world: Object.create(world).init(debug)
 });
+
+if (!res) {
+    store.data.world.addCharacter(store.data.character);
+    store.data.world.addGuild(store.data.guild);
+}
+
 
 store.data.character.__proto__ = character;
 

@@ -1,4 +1,5 @@
 import tools from '../tools';
+import item from './item';
 
 export default {
     openValues: [],
@@ -43,10 +44,6 @@ export default {
     addRewardByChance(level) {
         const randomFactor = tools.getRandomInt(0.5, 1.5);
 
-        this.rewards.push({
-            type: tools.getRandomFromList(['weapon', 'armor', 'accessory']),
-            value: (this.level + level) * randomFactor,
-            name: tools.getRandomItemName()
-        });
+        this.rewards.push(Object.create(item).init((this.level + level) * randomFactor));
     }
 }

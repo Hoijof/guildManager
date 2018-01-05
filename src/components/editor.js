@@ -52,13 +52,11 @@ class Editor extends React.Component {
     getInputField(paramName, readOnly = false, parent, grandParentName, ggp) {
         const styles = this.getStyles();
         const editable = this.state[this.props.editable];
-        console.log(paramName);
 
         const param = (editable[ggp] && editable[ggp][grandParentName] && editable[ggp][grandParentName][parent] && editable[ggp][grandParentName][parent][paramName]) ||
             (editable[grandParentName] && editable[grandParentName][parent] && editable[grandParentName][parent][paramName]) ||
             (editable[parent] && editable[parent][paramName]) ||
             editable[paramName];
-        console.log(param);
 
         if (typeof param === 'object') {
             const keys = Object.keys(param);

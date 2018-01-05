@@ -6,14 +6,25 @@ export default {
     closedValues: ['name'],
 
     init(debug = false) {
+        this.characters = [];
         this.guilds = [];
         this.name = "Tainor";
 
         if (debug) {
             this.openValues = ['name'];
-            this.closedValues = [];
+            this.closedValues = ['characters', 'guilds'];
         }
 
         return this;
+    },
+    addCharacter(character) {
+        this.characters.push(character);
+
+        character.id = this.characters.length - 1;
+    },
+    addGuild(guild) {
+        this.guilds.push(guild);
+
+        guild.id = this.guilds.length - 1;
     }
 };

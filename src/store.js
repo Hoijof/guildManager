@@ -12,8 +12,12 @@ store.load = function(defaultData) {
   if (res == null || res === 'null') {
       store.data = defaultData;
       store.persist();
+
+      return false;
   } else {
       store.data = JSON.parse(res);
+
+      return true;
   }
 };
 
