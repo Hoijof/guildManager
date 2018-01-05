@@ -1,8 +1,8 @@
 import React from 'react';
 import Menu from './menu';
-import '../css/app.css'
+import Radium from "radium";
 
-export default class App extends React.Component {
+class App extends React.Component {
     constructor(props) {
         super(props);
 
@@ -24,17 +24,34 @@ export default class App extends React.Component {
 
 
     render() {
-        return <div id="mainDiv" className="mainDiv">
+        const sideMenuStyles = {
+            height: '100%',
+            backgroundColor: 'black',
+            width: 'fit-content',
+            float: 'left'
+        };
 
-            <div className="sideMenu">
+        const mainContainerStyles = {
+            padding: '10px',
+            float: 'left'
+        };
+        const mainDivStyles = {
+
+        };
+
+        return <div id="mainDiv" style={mainDivStyles} className="mainDiv">
+
+            <div style={sideMenuStyles}>
                 <Menu changeActiveComponent={this.changeActiveComponent}/>
                 <p>App Status: {this.status}</p>
             </div>
 
-            <div className="mainContainer">
+            <div style={mainContainerStyles}>
                 {this.state.component}
             </div>
 
         </div>
     }
 }
+
+export default Radium(App);

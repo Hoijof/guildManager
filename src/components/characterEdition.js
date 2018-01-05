@@ -1,7 +1,7 @@
 import React from 'react';
-import '../css/characterEdition.css'
+import Radium from "radium";
 
-export default class CharacterEdition extends React.Component {
+class CharacterEdition extends React.Component {
     constructor(props) {
         super(props);
 
@@ -22,11 +22,15 @@ export default class CharacterEdition extends React.Component {
     }
 
     render () {
+        const formStyles = {
+            width: 300
+        };
+
         return (
-            <div className="characterEdition">
+            <div>
                 <h3>Character edition</h3>
 
-                <div id="mainForm" className="form">
+                <div style={formStyles}>
                     {this.state.character.openValues.map((name) => { return this.getInputField(name)})}
                     {this.state.character.closedValues.map((name) => { return this.getInputField(name, true)})}
                 </div>
@@ -35,20 +39,30 @@ export default class CharacterEdition extends React.Component {
     }
 
     getInputField(paramName, readOnly = false) {
+        const divStyles = {
+            padding: 5
+        };
+
+        const spanStyles = {
+            marginRight: 5
+        };
+
         if (readOnly) {
             return (
-                <div>
-                    <span>{paramName}:</span>
+                <div style={divStyles}>
+                    <span style={spanStyles}>{paramName}:</span>
                     <span> {this.state.character[paramName]} </span>
                 </div>
             );
         }
 
         return (
-            <div>
-                <span>{paramName}:</span>
+            <div style={divStyles}>
+                <span style={spanStyles}>{paramName}:</span>
                 <input id={paramName} type="text" onChange={(e) => {this.updateCharacter(paramName, e)}} value={this.state.character[paramName]}/>
             </div>
         );
     }
 }
+
+export default Radium(CharacterEdition);

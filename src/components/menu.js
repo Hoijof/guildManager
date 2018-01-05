@@ -1,8 +1,8 @@
 import React from 'react';
 import Character from './characterEdition'
-import '../css/menu.css'
+import Radium from 'radium';
 
-export default class Menu extends React.Component {
+class Menu extends React.Component {
     constructor(props) {
         super(props);
 
@@ -14,12 +14,35 @@ export default class Menu extends React.Component {
     }
 
     render() {
+        const ulSyles = {
+            listStyleType: 'none',
+            margin: 5,
+            padding: 0
+        };
+
+        const liStyles = {
+            display: 'block',
+            padding: '1em',
+            backgroundColor: 'LightGray',
+            textAlign: 'center',
+            marginBottom: '0.2em',
+            textDecoration: 'none',
+            color: 'black',
+            width: '6em',
+            ':hover': {
+                backgroundColor: 'LightCoral',
+                cursor: 'pointer'
+            }
+        };
+
         return (
             <nav>
-                <ul>
-                    <li onClick={this.characterEdition}>Character</li>
+                <ul style={ulSyles}>
+                    <li style={liStyles} onClick={this.characterEdition}>Character</li>
                 </ul>
             </nav>
         );
     }
 }
+
+export default Radium(Menu);
