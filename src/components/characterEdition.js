@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/characterEdition.css'
 
 export default class CharacterEdition extends React.Component {
     constructor(props) {
