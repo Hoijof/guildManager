@@ -1,12 +1,13 @@
 import tools from '../tools';
 import item from './item';
+import questNames from '../consts/questNames';
 
 export default {
     openValues: [],
     closedValues: ['gold', 'renown'],
 
     init() {
-        this.name = 'quest';
+        this.name = this.getRandomName();
 
         this.level = this.getRandomLevel();
 
@@ -45,5 +46,10 @@ export default {
         const randomFactor = tools.getRandomInt(0.5, 1.5);
 
         this.rewards.push(Object.create(item).init((this.level + level) * randomFactor));
+    },
+    getRandomName() {
+        const action = tools.getRandomFromList(questNames.actions);
+
+        return action + tools.getRandomFromList(questNames)
     }
 }
