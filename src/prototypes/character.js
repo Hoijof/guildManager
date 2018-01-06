@@ -4,10 +4,10 @@ import tools from '../tools';
 
 export default {
     __proto__: editable,
-    openValues: ['name', 'surname'],
-    closedValues: ['age', 'gold', 'level', 'completedQuest', 'energy'],
-    openValues: ['items', 'name', 'surname', 'age', 'gold', 'level', 'completedQuests', 'energy', 'talent', 'exp'],
-    closedValues: ['id'],
+    openValues: ['name', 'surname' ],
+    closedValues: ['age', 'gold', 'level', 'completedQuest', 'energy', 'items'],
+    // openValues: ['items', 'name', 'surname', 'age', 'gold', 'level', 'completedQuests', 'energy', 'talent', 'exp'],
+    // closedValues: ['id'],
     init(id, debug = false) {
         this.id = id;
 
@@ -18,7 +18,7 @@ export default {
         this.energy = tools.getRandomInt(50, 100);
         this.maxEnergy = 100;
 
-        this.gold = tools.getRandomInt(0, 50);
+        this.gold = tools.getRandomInt(0, 100);
         this.items = {
             weapon: null,
             armor: null,

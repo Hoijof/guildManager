@@ -39,6 +39,11 @@ if (!store.load()) {
 
     function protoCharacter(c) {
         c.__proto__ = character;
+        for (let i in c.items) {
+            if (c.items[i] != null) {
+                protoItem(c.items[i]);
+            }
+        }
     }
 
     function protoItem(i) {

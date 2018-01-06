@@ -26,5 +26,8 @@ export default {
         const factor = tools.getRandomInt(0.8, 1.5);
 
         return this.level * 15;
+    },
+    getSellPrice() {
+        return Math.round(this.computePrice() * 0.8);
     }
 }
