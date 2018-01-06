@@ -10,7 +10,7 @@ class Market extends React.Component {
 
         this.state = {
             items: window.store.data.world.market.items,
-            character: window.store.data.world.characters[props.characterId]
+            character: window.store.character
         };
     }
 
@@ -22,7 +22,7 @@ class Market extends React.Component {
         const item = this.state.items[e.target.getAttribute('data-id')];
 
         if (this.state.character.gold >= item.price) {
-            this.state.character.items.weapon = item;
+            this.state.character.addItem(item);
             this.state.character.gold -= item.price;
 
             const idx = window.store.data.world.market.items.indexOf(item);

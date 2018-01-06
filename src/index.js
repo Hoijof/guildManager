@@ -15,7 +15,7 @@ import building from './prototypes/building';
 
 window.store = store;
 
-localStorage.setItem('gm', null);
+// localStorage.setItem('gm', null);
 
 if (!store.load()) {
     let debug = true;
@@ -23,13 +23,10 @@ if (!store.load()) {
     store.data.world = Object.create(world).init(debug);
     store.data.characterId = 0;
     store.data.guildId = 0;
-    store.data.world.addCharacter(Object.create(character).init());
     store.data.world.addGuild(Object.create(guild).init());
-
-    store.data.world.guilds[0].addMember(store.data.world.characters[0]);
+    store.data.world.guilds[0].addMember(Object.create(character).init());
 } else {
     store.data.world.__proto__ = world;
-    store.data.world.characters.forEach(protoCharacter);
 
     store.data.world.guilds.forEach((g) => {
        g.__proto__ = guild;
@@ -53,12 +50,14 @@ if (!store.load()) {
     }
 }
 
+store.guild = store.data.world.guilds[0];
+store.character = store.guild.members[0];
 
 
 store.data.world.callADay();
 
 // Have to solve how routes work yet
-store.currentComponent = <Editor editable="characters" id={0}/>;
+store.currentComponent = <Editor editable={store.character} id={0}/>;
 
 window.onbeforeunload = function() {
     store.persist();

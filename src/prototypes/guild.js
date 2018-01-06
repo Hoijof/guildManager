@@ -7,6 +7,8 @@ export default {
     __proto__: editable,
     openValues: [],
     closedValues: ['gold', 'renown'],
+    openValues: ['gold', 'renown', 'members', 'buildings', 'items'],
+    closedValues: ['id'],
     init(id, debug = false) {
         this.id = id;
         this.members = [];

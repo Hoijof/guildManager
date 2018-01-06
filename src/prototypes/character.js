@@ -64,5 +64,18 @@ export default {
         const res = Math.round((this.level * 10) + (this.completedQuests * 2) +  this.gold/2 - this.age/4 + ((this.talent * 500) / this.age));
 
         return res > 15 ? res : 15;
+    },
+    addItem(item) {
+        switch (item.type) {
+            case 'weapon':
+                this.items.weapon = item;
+                break;
+            case 'armor':
+                this.items.armor = item;
+                break;
+            case 'accessory':
+                this.items.accessory = item;
+                break;
+        }
     }
 };

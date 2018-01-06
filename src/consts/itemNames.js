@@ -1,8 +1,10 @@
 export default [
     'storms',
-    'dead',
+    'the dead',
     'thunder',
     'normalness',
     'meh',
-    'walking dog'
+    'the walking dog',
+    'Tuno the great',
+    'Denise 12'
 ];

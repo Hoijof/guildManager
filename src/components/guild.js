@@ -11,7 +11,7 @@ class Guild extends React.Component {
 
         this.state = {
             component: this.props.component || <Overview guild={window.store.data.world.guilds[window.store.data.guildId]}/>,
-            guild: window.store.data.world.guilds[window.store.data.guildId]
+            guild: window.store.guild
         };
 
         this.changeActiveComponent = this.changeActiveComponent.bind(this);

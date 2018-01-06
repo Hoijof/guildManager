@@ -10,8 +10,8 @@ class Recruit extends React.Component {
 
         this.state = {
             recruits: window.store.data.world.recruits,
-            character: window.store.data.world.characters[props.characterId],
-            guild: window.store.data.world.guilds[window.store.data.guildId]
+            character: window.store.guild,
+            guild: window.store.guild
         };
     }
 
