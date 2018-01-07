@@ -7,23 +7,13 @@ class Item extends React.Component {
         item: proptypes.object.isRequired,
         buy: proptypes.func,
         sell: proptypes.func,
+        equip: proptypes.func,
+        unequip: proptypes.func,
         itemKey: proptypes.any.isRequired
     };
 
     getImgSrc() {
-        let imgSrc = 'img/';
-
-        switch(this.props.item && this.props.item.type) {
-            case 'weapon':
-                imgSrc += 'axe.png';
-                break;
-            case 'armor':
-                imgSrc += 'armor.png';
-                break;
-            case 'accessory':
-                imgSrc += 'ring.png';
-                break;
-        }
+        let imgSrc = 'img/weapons-and-equipment.png';
 
         return imgSrc;
     }
@@ -53,19 +43,47 @@ class Item extends React.Component {
         }
     }
 
-    render() {
+    equip() {
         const styles = this.getStyles();
 
+        if (typeof this.props.equip === 'function') {
+            return (
+                <button style={[styles.button, styles.buy]} onClick={this.props.equip} data-id={this.props.itemKey} >
+                    Equip
+                </button>
+            )
+        }
+    }
+
+    unequip() {
+        const styles = this.getStyles();
+
+        if (typeof this.props.unequip === 'function') {
+            return (
+                <button style={[styles.button, styles.sell]} onClick={this.props.unequip} data-id={this.props.itemKey} >
+                    Unequip
+                </button>
+            )
+        }
+    }
+
+    render() {
         const item = this.props.item;
+
+        if (item === null) return <div></div>;
+
+        const styles = this.getStyles();
 
         return (
             <div style={styles.itemBox}>
-                <img style={styles.img} src={this.getImgSrc()} />
+                <div style={styles.img}> </div>
                 <p style={styles.p}>{item.displayName}</p>
                 <p style={styles.p}>Lvl:{item.level}</p>
                 <p style={styles.p}>Price: {item.price}</p>
                 {this.buy()}
                 {this.sell()}
+                {this.equip()}
+                {this.unequip()}
             </div>
         )
     }
@@ -81,7 +99,10 @@ class Item extends React.Component {
             },
             img: {
                 width: 32,
-                height: 32
+                height: 32,
+                backgroundImage: `url('${this.getImgSrc()}')`,
+                backgroundPositionX: this.getPositionX(),
+                backgroundPositionY: this.getPositionY(),
             },
             button: {
                 cursor: 'pointer'
@@ -98,6 +119,13 @@ class Item extends React.Component {
                 margin: 5
             }
         }
+    }
+
+    getPositionX() {
+        return this.props.item.portrait.x * 32;
+    }
+    getPositionY() {
+        return this.props.item.portrait.y * 32;
     }
 }
 

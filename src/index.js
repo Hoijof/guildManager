@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 import store from './store';
-import App from './components/app';
+import App from './components/main/app';
 
-import Editor from './components/editor';
+import Character from './components/main/character';
 
 import character from './prototypes/character';
 import guild from './prototypes/guild';
@@ -16,6 +16,7 @@ import building from './prototypes/building';
 window.store = store;
 
 //localStorage.setItem('gm', null);
+
 
 if (!store.load()) {
     let debug = true;
@@ -63,7 +64,7 @@ store.character = store.guild.members[0];
 store.data.world.callADay();
 
 // Have to solve how routes work yet
-store.currentComponent = <Editor editable={store.character} id={0}/>;
+store.currentComponent = <Character character={store.character} guild={store.guild}/>;
 
 window.onbeforeunload = function() {
     store.persist();

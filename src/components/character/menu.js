@@ -3,45 +3,34 @@ import proptypes from 'prop-types';
 import Radium from 'radium';
 
 import Overview from './overview';
-import Members from './members';
-import Buildings from './buildings';
+import Items from './items';
 import Logs from '../units/logs';
-import Quests from './quests';
 
 class Menu extends React.Component {
     constructor(props) {
         super(props);
 
         this.openOverview = this.openOverview.bind(this);
-        this.openMembers = this.openMembers.bind(this);
-        this.openQuests = this.openQuests.bind(this);
-        this.openBuildings = this.openBuildings.bind(this);
+        this.openItems = this.openItems.bind(this);
         this.openLogs = this.openLogs.bind(this);
     }
 
     static proptypes = {
         changeActiveComponent: proptypes.func.isRequired,
+        character: proptypes.object.isRequired,
         guild: proptypes.object.isRequired
     };
 
-    openOverview(e) {
-        this.props.changeActiveComponent(<Overview guild={this.props.guild} />);
+    openOverview() {
+        this.props.changeActiveComponent(<Overview character={this.props.character} guild={this.props.guild} />);
     }
 
-    openMembers(e) {
-        this.props.changeActiveComponent(<Members guild={this.props.guild} />);
+    openItems() {
+        this.props.changeActiveComponent(<Items character={this.props.character} guild={this.props.guild} />);
     }
 
-    openBuildings(e) {
-        this.props.changeActiveComponent(<Buildings guild={this.props.guild} />);
-    }
-
-    openQuests(e) {
-        this.props.changeActiveComponent(<Quests guild={this.props.guild} />);
-    }
-
-    openLogs(e) {
-        this.props.changeActiveComponent(<Logs logs={this.props.guild.logs} />);
+    openLogs() {
+        this.props.changeActiveComponent(<Logs logs={this.props.character.logs} />);
     }
 
     render() {
@@ -51,11 +40,9 @@ class Menu extends React.Component {
             <nav>
                 <ul style={styles.ulSyles}>
                     <li style={styles.liStyles} key="overview" onClick={this.openOverview} >Overview</li>
-                    <li style={styles.liStyles} key="members" onClick={this.openMembers} >Members</li>
-                    <li style={styles.liStyles} key="quests" onClick={this.openQuests} >Quests</li>
-                    <li style={styles.liStyles} key="buildings" onClick={this.openBuildings} >Buildings</li>
+                    <li style={styles.liStyles} key="items" onClick={this.openItems} >Items</li>
                     <li style={styles.liStyles} key="logs" onClick={this.openLogs} >Logs</li>
-                    <li style={styles.gold} key="gold"> Gold: {this.props.guild.gold} </li>
+                    <li style={styles.gold} key="gold"> Gold: {this.props.character.gold} </li>
                 </ul>
             </nav>
         );

@@ -5,6 +5,7 @@ import Editor from './editor';
 import Market from './market';
 import Recruit from './recruit';
 import Guild from './guild';
+import Character from './character';
 
 class Menu extends React.Component {
     constructor(props) {
@@ -13,6 +14,7 @@ class Menu extends React.Component {
         this.openEditorGuild = this.openEditorGuild.bind(this);
         this.openEditorWorld = this.openEditorWorld.bind(this);
         this.openEditorCharacter = this.openEditorCharacter.bind(this);
+        this.openCharacter = this.openCharacter.bind(this);
         this.openMarket = this.openMarket.bind(this);
         this.openRecruit = this.openRecruit.bind(this);
         this.openGuild = this.openGuild.bind(this);
@@ -37,6 +39,10 @@ class Menu extends React.Component {
         const editable = window.store.character;
 
         this.props.changeActiveComponent(<Editor editable={editable}/>);
+    }
+
+    openCharacter() {
+        this.props.changeActiveComponent(<Character character={window.store.character} guild={window.store.guild}/> );
     }
 
     openMarket() {
@@ -71,6 +77,7 @@ class Menu extends React.Component {
                     <li style={[styles.liStyles]} key="characters" onClick={this.openEditorCharacter} data-prototype="character" data-id="0">Edit Character</li>
                     <li style={[styles.liStyles]} key="s" onClick={this.openEditorGuild} data-prototype="guilds" data-id="0">Edit Guild</li>
                     <li style={[styles.liStyles]} key="world" onClick={this.openEditorWorld} data-prototype="world" data-id="-1">Edit World</li>
+                    <li style={[styles.liStyles]} key="character" onClick={this.openCharacter} >Character</li>
                     <li style={[styles.liStyles]} key="market" onClick={this.openMarket} >Market</li>
                     <li style={[styles.liStyles]} key="recruit" onClick={this.openRecruit} >Recruit</li>
                     <li style={[styles.liStyles]} key="guild" onClick={this.openGuild} >Guild</li>

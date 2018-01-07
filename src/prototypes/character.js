@@ -15,6 +15,13 @@ export default {
         this.surname = tools.getRandomFromList(names.surnames);
         this.age = tools.getRandomInt(14, 80);
 
+        this.logs = [];
+
+        this.portrait = {
+            x: -tools.getRandomInt(0,15),
+            y: -tools.getRandomInt(1,5)
+        };
+
         this.energy = tools.getRandomInt(50, 100);
         this.maxEnergy = 100;
 
@@ -73,12 +80,17 @@ export default {
     addItem(item) {
         this.items.push(item);
     },
-    equipItem(item) {
+    equipItem(item, newItem = false) {
+        debugger;
         if (this.equipment[item.type] != null) {
             this.unequipItem(this.equipment[item.type]);
         }
 
         this.equipment[item.type] = item;
+
+        if (newItem === false) {
+            this.removeItem(item);
+        }
     },
     unequipItem(item) {
         this.equipment[item.type] = null;
@@ -86,23 +98,37 @@ export default {
         this.items.push(item);
     },
     removeItem(key) {
+        if (typeof key === 'object') {
+            key = this.items.indexOf(key);
+        }
+
         this.items.splice(key, 1);
     },
     setQuest(quest) {
         this.quest = quest;
     },
     levelUp() {
-        if (this.exp >= this.level * 15) {
+        if (this.exp >= this.expToNextLevel()) {
             this.level++;
             this.exp = 0;
+
+            this.log('Leveled up to level ' + this.level);
 
             return true;
         }
 
         return false;
     },
+    expToNextLevel() {
+        return this.level * 15;
+    },
     getTotalLevel() {
       return this.level + this.getTotalItemLevel();
+    },
+    log(m) {
+        const message = `Day ${window.store.data.world.day}: ${m}`;
+
+        this.logs.push(message);
     },
     getTotalItemLevel() {
         const equipment = this.equipment;

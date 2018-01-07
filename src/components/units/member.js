@@ -6,21 +6,33 @@ class Member extends React.Component {
     static proptypes = {
         member: proptypes.object.isRequired,
         expel: proptypes.func,
+        recruit: proptypes.func,
         itemKey: proptypes.any.isRequired
     };
 
     getImgSrc() {
-        let imgSrc = 'img/faceMale1.png';
+        let imgSrc = 'img/faces2.png';
         return imgSrc;
     }
 
-
-    assign() {
+    expel() {
         const styles = this.getStyles();
 
         if (typeof this.props.expel === 'function') {
             return (
                 <button style={[styles.button, styles.expel]} onClick={this.props.expel} data-id={this.props.itemKey} >
+                    Expel
+                </button>
+            );
+        }
+    }
+
+    recruit() {
+        const styles = this.getStyles();
+
+        if (typeof this.props.recruit === 'function') {
+            return (
+                <button style={[styles.button, styles.recruit]} onClick={this.props.recruit} data-id={this.props.itemKey} >
                     Expel
                 </button>
             );
@@ -34,13 +46,14 @@ class Member extends React.Component {
 
         return (
             <div style={styles.memberBox}>
-                <img style={styles.img} src={this.getImgSrc()} />
+                <div style={styles.img}> </div>
                 <p style={styles.p}>{member.name}</p>
                 <p style={styles.p}>Age: {member.age}</p>
                 <p style={styles.p}>Lvl: {member.getTotalLevel()}</p>
                 <p style={styles.p}>Talent: {member.talent}</p>
                 <p style={styles.p}>Price: {member.computePrice()}</p>
-                {this.assign()}
+                {this.expel()}
+                {this.recruit()}
             </div>
         )
     }
@@ -56,12 +69,19 @@ class Member extends React.Component {
             },
             img: {
                 width: 32,
-                height: 32
+                height: 32,
+                backgroundImage: `url('${this.getImgSrc()}')`,
+                backgroundPositionX: this.getPositionX(),
+                backgroundPositionY: this.getPositionY(),
             },
             button: {
                 cursor: 'pointer'
             },
             expel: {
+                backgroundColor: 'red',
+                color: 'white'
+            },
+            recruit: {
                 backgroundColor: 'green',
                 color: 'white'
             },
@@ -69,6 +89,13 @@ class Member extends React.Component {
                 margin: 5
             }
         }
+    }
+
+    getPositionX() {
+        return this.props.member.portrait.x * 32;
+    }
+    getPositionY() {
+        return this.props.member.portrait.y * 32;
     }
 }
 

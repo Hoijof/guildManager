@@ -2,7 +2,7 @@ import React from 'react';
 import proptypes from 'prop-types';
 import Radium from "radium";
 
-import Quest from '../quest';
+import Quest from '../units/quest';
 
 class Quests extends React.Component {
     constructor(props) {

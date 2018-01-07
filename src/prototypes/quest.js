@@ -40,6 +40,8 @@ export default {
             this.addRewardByChance(1, reward);
         } else if (roll < 90) {
             this.addRewardByChance(0, reward);
+        } else {
+            this.addRewardByChance(0, reward);
         }
 
         return reward[0];

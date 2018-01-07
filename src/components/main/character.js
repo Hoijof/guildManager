@@ -1,16 +1,17 @@
 import React from 'react';
 import proptypes from 'prop-types';
 import Radium from "radium";
-import Menu from './guild/menu';
+import Menu from '../character/menu';
 
-import Overview from './guild/overview';
+import Overview from '../character/overview';
 
-class Guild extends React.Component {
+class Character extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            component: this.props.component || <Overview guild={window.store.data.world.guilds[window.store.data.guildId]}/>,
+            component: this.props.component || <Overview character={window.store.character}/>,
+            character: window.store.character,
             guild: window.store.guild
         };
 
@@ -18,7 +19,6 @@ class Guild extends React.Component {
     }
 
     changeActiveComponent(newComponent) {
-        window.store.currentComponent = newComponent;
         this.setState({
             component: newComponent
         });
@@ -28,10 +28,10 @@ class Guild extends React.Component {
         const styles = this.getStyles();
 
         return (
-            <div id="guildDiv" style={styles.mainDivStyles}>
+            <div id="characterDiv" style={styles.mainDivStyles}>
 
                 <div style={styles.sideMenuStyles}>
-                    <Menu changeActiveComponent={this.changeActiveComponent} guild={this.state.guild}/>
+                    <Menu changeActiveComponent={this.changeActiveComponent} character={this.state.character} guild={this.state.guild}/>
                 </div>
 
                 <div style={styles.mainContainerStyles}>
@@ -62,4 +62,4 @@ class Guild extends React.Component {
     }
 }
 
-export default Radium(Guild);
+export default Radium(Character);

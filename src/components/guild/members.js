@@ -2,7 +2,7 @@ import React from 'react';
 import proptypes from 'prop-types';
 import Radium from "radium";
 
-import Member from '../member';
+import Member from '../units/member';
 
 class Members extends React.Component {
     constructor(props) {

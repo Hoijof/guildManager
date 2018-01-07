@@ -2,6 +2,8 @@ import React from 'react';
 import proptypes from 'prop-types';
 import Radium from "radium";
 
+import Member from '../units/member';
+
 class Recruit extends React.Component {
     constructor(props) {
         super(props);
@@ -32,11 +34,9 @@ class Recruit extends React.Component {
         }
     }
 
-    canBuy(recruit, key) {
+    canBuy(recruit) {
         if (this.state.guild.gold >= recruit.price) {
-            return <a href="#" onClick={this.buyRecruit} data-id={key}>buy</a>;
-        } else {
-            return <span>buy</span>;
+            return this.buyRecruit;
         }
     }
 
@@ -49,15 +49,7 @@ class Recruit extends React.Component {
                 <ul>
                     {this.state.recruits && this.state.recruits.map((recruit, key) => {
                         return (
-                            <li key={recruit.name+recruit.age+recruit.level}>
-                                <p>Name: {recruit.name}</p>
-                                <p>Age: {recruit.age}</p>
-                                <p>Level: {recruit.level}</p>
-                                <p>Talent: {recruit.talent}</p>
-                                <p>Price: {recruit.price}</p>
-
-                                {this.canBuy(recruit, key)}
-                            </li>
+                            <Member member={recruit} recruit={this.canBuy(recruit)} itemKey={key} />
                         )
                     })}
                 </ul>

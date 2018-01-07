@@ -2,7 +2,7 @@ import React from 'react';
 import proptypes from 'prop-types';
 import Radium from "radium";
 
-import Item from './item';
+import Item from '../units/item';
 
 class Market extends React.Component {
     constructor(props) {
@@ -25,7 +25,7 @@ class Market extends React.Component {
         const item = this.state.items[e.target.getAttribute('data-id')];
 
         if (this.state.character.gold >= item.price) {
-            this.state.character.equipItem(item);
+            this.state.character.equipItem(item, true);
             this.state.character.gold -= item.price;
 
             const idx = window.store.data.world.market.items.indexOf(item);
