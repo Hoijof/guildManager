@@ -17,5 +17,11 @@ export default {
     upgrade() {
         this.level += 1;
         this.effect = Math.round(this.effect * 1.6)
+    },
+    getEffect(type) {
+        switch(type) {
+            case 'quest':
+                return this.effect / 10;
+        }
     }
 }

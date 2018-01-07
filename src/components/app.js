@@ -9,7 +9,8 @@ class App extends React.Component {
         this.status = 'Started';
 
         this.state = {
-            component: this.props.component
+            component: this.props.component,
+            character: window.store.character
         };
 
         this.changeActiveComponent = this.changeActiveComponent.bind(this);
@@ -32,8 +33,8 @@ class App extends React.Component {
         };
 
         const mainContainerStyles = {
-            padding: '10px',
-            float: 'left'
+            padding: 10,
+            overflow: 'auto'
         };
         const mainDivStyles = {};
 
@@ -41,8 +42,7 @@ class App extends React.Component {
             <div id="mainDiv" style={mainDivStyles} className="mainDiv">
 
                 <div style={sideMenuStyles}>
-                    <Menu changeActiveComponent={this.changeActiveComponent}/>
-                    <p>App Status: {this.status}</p>
+                    <Menu changeActiveComponent={this.changeActiveComponent} character={this.state.character}/>
                 </div>
 
                 <div style={mainContainerStyles}>

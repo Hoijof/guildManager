@@ -2,21 +2,29 @@ import React from 'react';
 import proptypes from 'prop-types';
 import Radium from "radium";
 
-import Member from '../member';
+import Quest from '../quest';
 
-class Members extends React.Component {
+class Quests extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            guild: props.guild
+            guild: props.guild,
+            member: window.store.character
         };
 
-        this.expel = this.expel.bind(this);
+        this.assign = this.assign.bind(this);
     }
 
-    expel(e) {
-        this.state.guild.expelMember(e.target.getAttribute('data-id'));
+    assign(e) {
+        const id = e.target.getAttribute('data-id');
+        const quest = this.state.guild.quests[id];
+
+        if (id >= this.state.guild.defaultQuests) {
+            this.state.guild.removeQuest(quest);
+        }
+
+        this.state.member.setQuest(quest);
 
         this.forceUpdate();
     }
@@ -26,11 +34,11 @@ class Members extends React.Component {
 
         return (
             <div>
-                <h1 style={styles.title}>MEMBERS!</h1>
+                <h1 style={styles.title}>QUESTS!</h1>
                 <ul>
-                    {this.state.guild.members.map((member, key) => {
+                    {this.state.guild.quests.map((quest, key) => {
                         return (
-                            <Member member={member} expel={this.expel} itemKey={key} />
+                            <Quest quest={quest} assign={this.assign} itemKey={key} />
                         )
                     })}
                 </ul>
@@ -54,4 +62,4 @@ class Members extends React.Component {
     }
 }
 
-export default Radium(Members);
+export default Radium(Quests);

@@ -28,7 +28,7 @@ class Guild extends React.Component {
         const styles = this.getStyles();
 
         return (
-            <div id="mainDiv" style={styles.mainDivStyles} className="mainDiv">
+            <div id="guildDiv" style={styles.mainDivStyles}>
 
                 <div style={styles.sideMenuStyles}>
                     <Menu changeActiveComponent={this.changeActiveComponent} guild={this.state.guild}/>
@@ -48,7 +48,9 @@ class Guild extends React.Component {
                 width: '100%',
                 height: 60,
                 backgroundColor: 'black',
-                float: 'left'
+                position: 'absolute',
+                top: 0,
+                left: 150
             },
             mainContainerStyles: {
                 marginTop: 60,

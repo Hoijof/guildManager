@@ -10,21 +10,21 @@ class Recruit extends React.Component {
 
         this.state = {
             recruits: window.store.data.world.recruits,
-            character: window.store.guild,
+            character: props.character,
             guild: window.store.guild
         };
     }
 
     static propTypes = {
-        characterId: proptypes.number.isRequired
+        character: proptypes.object.isRequired
     };
 
     buyRecruit(e) {
         const recruit = this.state.recruits[e.target.getAttribute('data-id')];
 
-        if (this.state.character.gold >= recruit.price) {
+        if (this.state.guild.gold >= recruit.price) {
             this.state.guild.addMember(recruit);
-            this.state.character.gold -= recruit.price;
+            this.state.guild.gold -= recruit.price;
             const idx = window.store.data.world.recruits.indexOf(recruit);
             window.store.data.world.recruits.splice(idx, 1);
 
@@ -33,7 +33,7 @@ class Recruit extends React.Component {
     }
 
     canBuy(recruit, key) {
-        if (this.state.character.gold >= recruit.price) {
+        if (this.state.guild.gold >= recruit.price) {
             return <a href="#" onClick={this.buyRecruit} data-id={key}>buy</a>;
         } else {
             return <span>buy</span>;

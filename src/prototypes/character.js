@@ -5,7 +5,7 @@ import tools from '../tools';
 export default {
     __proto__: editable,
     openValues: ['name', 'surname' ],
-    closedValues: ['age', 'gold', 'level', 'completedQuest', 'energy', 'items'],
+    closedValues: ['age', 'exp', 'gold', 'level', 'completedQuests', 'energy', 'items', 'equipment', 'quest'],
     // openValues: ['items', 'name', 'surname', 'age', 'gold', 'level', 'completedQuests', 'energy', 'talent', 'exp'],
     // closedValues: ['id'],
     init(id, debug = false) {
@@ -19,13 +19,16 @@ export default {
         this.maxEnergy = 100;
 
         this.gold = tools.getRandomInt(0, 100);
-        this.items = {
+        this.items = [];
+        this.equipment = {
             weapon: null,
             armor: null,
             accessory: null
         };
 
-        this.completedQuests = tools.getRandomInt(0,20);
+        this.quest = null;
+
+        this.completedQuests = tools.getRandomInt(0,0);
         this.level = tools.getRandomInt(1, 5);
 
         this.talent = this.getTalent();
@@ -38,6 +41,8 @@ export default {
         }
 
         this.price = this.computePrice();
+
+        this.share = 20; // share of quest money
 
         return this;
     },
@@ -66,16 +71,46 @@ export default {
         return res > 15 ? res : 15;
     },
     addItem(item) {
-        switch (item.type) {
-            case 'weapon':
-                this.items.weapon = item;
-                break;
-            case 'armor':
-                this.items.armor = item;
-                break;
-            case 'accessory':
-                this.items.accessory = item;
-                break;
+        this.items.push(item);
+    },
+    equipItem(item) {
+        if (this.equipment[item.type] != null) {
+            this.unequipItem(this.equipment[item.type]);
         }
+
+        this.equipment[item.type] = item;
+    },
+    unequipItem(item) {
+        this.equipment[item.type] = null;
+
+        this.items.push(item);
+    },
+    removeItem(key) {
+        this.items.splice(key, 1);
+    },
+    setQuest(quest) {
+        this.quest = quest;
+    },
+    levelUp() {
+        if (this.exp >= this.level * 15) {
+            this.level++;
+            this.exp = 0;
+
+            return true;
+        }
+
+        return false;
+    },
+    getTotalLevel() {
+      return this.level + this.getTotalItemLevel();
+    },
+    getTotalItemLevel() {
+        const equipment = this.equipment;
+
+        const wl = equipment.weapon ? equipment.weapon.level : 0;
+        const al = equipment.armor ? equipment.armor.level : 0;
+        const acl = equipment.accessory ? equipment.accessory.level : 0;
+
+        return Math.floor(wl/2 + al/2 + acl/2);
     }
 };

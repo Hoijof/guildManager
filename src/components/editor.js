@@ -56,7 +56,7 @@ class Editor extends React.Component {
             (editable[parent] && editable[parent][paramName]) ||
             editable[paramName];
 
-        if (typeof param === 'object') {
+        if (typeof param === 'object' && param !== null) {
             const keys = Object.keys(param);
 
             const res = keys.map((name) => {

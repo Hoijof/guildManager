@@ -6,6 +6,7 @@ import Overview from './overview';
 import Members from './members';
 import Buildings from './buildings';
 import Logs from '../logs';
+import Quests from './quests';
 
 class Menu extends React.Component {
     constructor(props) {
@@ -13,6 +14,7 @@ class Menu extends React.Component {
 
         this.openOverview = this.openOverview.bind(this);
         this.openMembers = this.openMembers.bind(this);
+        this.openQuests = this.openQuests.bind(this);
         this.openBuildings = this.openBuildings.bind(this);
         this.openLogs = this.openLogs.bind(this);
     }
@@ -34,6 +36,10 @@ class Menu extends React.Component {
         this.props.changeActiveComponent(<Buildings guild={this.props.guild} />);
     }
 
+    openQuests(e) {
+        this.props.changeActiveComponent(<Quests guild={this.props.guild} />);
+    }
+
     openLogs(e) {
         this.props.changeActiveComponent(<Logs logs={this.props.guild.logs} />);
     }
@@ -46,7 +52,7 @@ class Menu extends React.Component {
                 <ul style={styles.ulSyles}>
                     <li style={styles.liStyles} key="overview" onClick={this.openOverview} >Overview</li>
                     <li style={styles.liStyles} key="members" onClick={this.openMembers} >Members</li>
-                    <li style={styles.liStyles} key="quests" onClick={this.openOverview} >Quests</li>
+                    <li style={styles.liStyles} key="quests" onClick={this.openQuests} >Quests</li>
                     <li style={styles.liStyles} key="buildings" onClick={this.openBuildings} >Buildings</li>
                     <li style={styles.liStyles} key="logs" onClick={this.openLogs} >Logs</li>
                     <li style={styles.gold} key="gold"> Gold: {this.props.guild.gold} </li>

@@ -15,7 +15,7 @@ import building from './prototypes/building';
 
 window.store = store;
 
-// localStorage.setItem('gm', null);
+//localStorage.setItem('gm', null);
 
 if (!store.load()) {
     let debug = true;
@@ -39,11 +39,12 @@ if (!store.load()) {
 
     function protoCharacter(c) {
         c.__proto__ = character;
-        for (let i in c.items) {
-            if (c.items[i] != null) {
-                protoItem(c.items[i]);
+        for (let i in c.equipment) {
+            if (c.equipment[i] != null) {
+                protoItem(c.equipment[i]);
             }
         }
+        c.items.forEach(protoItem);
     }
 
     function protoItem(i) {
